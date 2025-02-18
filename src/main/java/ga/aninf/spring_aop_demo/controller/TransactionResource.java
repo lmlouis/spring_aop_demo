@@ -28,7 +28,7 @@ public class TransactionResource {
      * {@code GET  :uuid/historique-titulaire} endpoint pour consulter toutes les transactions d'un titulaire
      * @return
      */
-    @PostMapping("/{uuid}/historique-titulaire")
+    @GetMapping("/{uuid}/historique-titulaire")
     public List<Transaction> getAllTransactionByCompte(@PathVariable UUID uuid) {
         return transactionService.consulterTransactionsTitulaire(uuid);
     }
@@ -37,7 +37,7 @@ public class TransactionResource {
      * {@code GET /all} endpoint pour consulter toutes les transactions
      * @return
      */
-    @PostMapping("/all")
+    @GetMapping("/all")
     public List<Transaction> getAllTransactions() {
         return transactionRepository.findAll();
     }

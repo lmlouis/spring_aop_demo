@@ -54,7 +54,13 @@ public class TransactionAspect {
         Compte compte = compteRepository.findById(compteReference).orElse(null);
         String author = compte != null? compte.getTitulaire() : "INCONNU";
         String devise = compte != null? compte.getDevise() : "Devise inconnue";
-        String description =  Boolean.TRUE.equals(isSuccess) ?
+        String description = "";
+        if(typeTransaction.equals("CONSULTATION")){
+            description =  Boolean.TRUE.equals(isSuccess) ?
+                    String.format("%s  a effectuer avec succès une %s de solde",author, typeTransaction)
+                    : String.format("%s  a echouer une %s de solde",author, typeTransaction);
+        }
+        description =  Boolean.TRUE.equals(isSuccess) ?
                 String.format("%s  a effectuer avec succès une transaction de %s de %s %s",author, typeTransaction, montant, devise)
                 : String.format("%s  a echouer une transaction de %s de %s",author, typeTransaction, montant);
 

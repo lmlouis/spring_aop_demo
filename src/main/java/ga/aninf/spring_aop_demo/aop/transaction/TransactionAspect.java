@@ -59,9 +59,11 @@ public class TransactionAspect {
                     String.format("%s  a effectuer avec succès une %s de solde",author, typeTransaction)
                     : String.format("%s  a echouer une %s de solde",author, typeTransaction);
         }
-        description =  Boolean.TRUE.equals(isSuccess) ?
+        else{
+            description =  Boolean.TRUE.equals(isSuccess) ?
                 String.format("%s  a effectuer avec succès une transaction de %s de %s %s",author, typeTransaction, montant, devise)
                 : String.format("%s  a echouer une transaction de %s de %s",author, typeTransaction, montant);
+        }
 
         // Création de la transaction
         transactionService.creerTransaction(

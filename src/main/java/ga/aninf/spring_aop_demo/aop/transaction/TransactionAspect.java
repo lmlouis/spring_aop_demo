@@ -1,7 +1,6 @@
 package ga.aninf.spring_aop_demo.aop.transaction;
 
 import ga.aninf.spring_aop_demo.domain.Compte;
-import ga.aninf.spring_aop_demo.domain.Transaction;
 import ga.aninf.spring_aop_demo.repository.CompteRepository;
 import ga.aninf.spring_aop_demo.service.TransactionService;
 import org.aspectj.lang.JoinPoint;
@@ -65,7 +64,7 @@ public class TransactionAspect {
                 : String.format("%s  a echouer une transaction de %s de %s",author, typeTransaction, montant);
 
         // Création de la transaction
-        Transaction transaction = transactionService.creerTransaction(
+        transactionService.creerTransaction(
                 typeTransaction,
                 montant,
                 description,

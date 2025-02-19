@@ -65,7 +65,7 @@ public class TransactionAspect {
                 : String.format("%s  a echouer une transaction de %s de %s",author, typeTransaction, montant);
 
         // Création de la transaction
-        Transaction transaction = transactionService.creerTransaction(
+        transactionService.creerTransaction(
                 typeTransaction,
                 montant,
                 description,

@@ -9,6 +9,8 @@ import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.stereotype.Component;
+
 import java.math.BigDecimal;
 import java.util.UUID;
 
@@ -17,6 +19,7 @@ import java.util.UUID;
  * @description Aspect pour historiser les transactions
  */
 @Aspect
+@Component
 public class TransactionAspect {
 
     private final TransactionService transactionService;
@@ -50,8 +53,9 @@ public class TransactionAspect {
         };
         Compte compte = compteRepository.findById(compteReference).orElse(null);
         String author = compte != null? compte.getTitulaire() : "INCONNU";
+        String devise = compte != null? compte.getDevise() : "Devise inconnue";
         String description =  Boolean.TRUE.equals(isSuccess) ?
-                String.format("%s  a effectuer avec succès une transaction de %s de %s",author, typeTransaction, montant)
+                String.format("%s  a effectuer avec succès une transaction de %s de %s %s",author, typeTransaction, montant, devise)
                 : String.format("%s  a echouer une transaction de %s de %s",author, typeTransaction, montant);
 
         // Création de la transaction
@@ -61,18 +65,14 @@ public class TransactionAspect {
                 description,
                 compteReference
         );
-
-        // Log pour vérification
-        System.out.println(joinPoint.getSignature().getDeclaringTypeName());
-        System.out.println("Transaction créée : " + transaction);
     }
 
     /**
      * Pointcut pour intercepter les méthodes de création de transaction
      */
-    @Pointcut("execution(* com.example.service.CompteService.crediter(..)) || " +
-                    "execution(* com.example.service.CompteService.debiter(..)) || " +
-                    "execution(* com.example.service.CompteService.consulterSolde(..))"
+    @Pointcut("execution(* ga.aninf.spring_aop_demo.service.CompteService.crediter(..)) || " +
+                    "execution(* ga.aninf.spring_aop_demo.service.CompteService.debiter(..)) || " +
+                    "execution(* ga.aninf.spring_aop_demo.service.CompteService.consulterSolde(..))"
     )
     public void transactionPointcut() {
         // Pas de traitement car elle impléments des conseils d'aspects

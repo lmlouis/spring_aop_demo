@@ -1,7 +1,6 @@
 package ga.aninf.spring_aop_demo.aop.transaction;
 
 import ga.aninf.spring_aop_demo.domain.Compte;
-import ga.aninf.spring_aop_demo.domain.Transaction;
 import ga.aninf.spring_aop_demo.repository.CompteRepository;
 import ga.aninf.spring_aop_demo.service.TransactionService;
 import org.aspectj.lang.JoinPoint;

@@ -83,7 +83,7 @@ public class TransactionAspect {
      * @param joinPoint
      * @param result
      */
-    @AfterReturning(value = "transactionPointcut()",
+    @AfterReturning(pointcut = "transactionPointcut()",
             returning = "result")
     public void apresTransactionReussie(JoinPoint joinPoint, Object result) {
         System.out.println("Transaction réussie : " + result);
@@ -96,7 +96,7 @@ public class TransactionAspect {
      * @param joinPoint
      * @param ex
      */
-    @AfterThrowing(value = "transactionPointcut()",
+    @AfterThrowing(pointcut = "transactionPointcut()",
             throwing = "ex")
     public void apresTransactionEchouee(JoinPoint joinPoint, Exception ex) {
         System.out.println("Transaction échouée : " + ex.getMessage());
